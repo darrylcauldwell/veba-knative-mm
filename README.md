@@ -2,7 +2,7 @@ Background reading to this repository
 
 https://darrylcauldwell.github.io/post/veba-knative/
 
-# Install Function
+# Install Function
 
 ```bash
 # SSH to VEBA appliance
