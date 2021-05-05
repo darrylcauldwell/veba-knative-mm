@@ -13,4 +13,4 @@ spec:
         autoscaling.knative.dev/minScale: "1"
     spec:
       containers:
-        - image: ghcr.io/darrylcauldwell/veba-ps-enter-mm:0.2
+        - image: ghcr.io/darrylcauldwell/veba-ps-enter-mm:0.3
