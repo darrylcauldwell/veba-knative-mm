@@ -65,7 +65,6 @@ $resource = Invoke-WebRequest -Uri $uri -Method GET -Headers $authedHeaders
 Write-Host "ResourceID of host is " $resource.identifier
 
 ## Mark host as maintenance mode
-
 $uri = "https://" $vropsFqdn "/api/resources/" $resource.identifier "/maintained"
 Write-Host "Marking host as vROps maintenance mode ..."
 Invoke-WebRequest -Uri $uri -Method PUT -Headers $authedHeaders
