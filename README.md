@@ -29,7 +29,7 @@ docker build --tag ghcr.io/darrylcauldwell/veba-ps-enter-mm:0.2 .
 docker push ghcr.io/darrylcauldwell/veba-ps-enter-mm:0.2
 ```
 
-4. Update Knative service manifest to reflect new docker container image version lie:
+4. Update Knative service manifest ( enter-mm-service.yml ) to reflect new docker container image version lie:
 
 ```
 - image: ghcr.io/darrylcauldwell/veba-ps-enter-mm:0.2
