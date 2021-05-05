@@ -16,15 +16,16 @@ kubectl apply -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-
 
 ```bash
 git clone https://github.com/darrylcauldwell/veba-knative-mm.git
+cd veba-knative-mm
 ```
 
-2. Update *-handler.ps1 with required business logic
+2. Update enter/handler.ps1 or exit/handler./ps1 with required business logic
 
 3. Create new local image and push to GitHub Container Registry incrementing the version in tag
 
 ```bash
 # Authenticate if necessary with docker login
-docker build --tag ghcr.io/darrylcauldwell/veba-ps-enter:0.2 ./enter .
+docker build --tag ghcr.io/darrylcauldwell/veba-ps-enter:0.2 ./enter
 docker push ghcr.io/darrylcauldwell/veba-ps-enter:0.2
 ```
 
