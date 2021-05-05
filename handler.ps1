@@ -20,7 +20,7 @@ $vropsPassword = "VMware1!"
 ## Form unauthorized headers payload
 $headers = @{
    "Content-Type" = "application/json";
-   "Accept"  = "application/json"
+   "Accept" = "application/json"
    }
 
 ## Bypass certificate issues
@@ -41,13 +41,13 @@ add-type @"
 $uri = "https://" $vropsFqdn "/suite-api/api/auth/token/acquire"
 
 $basicAuthBody = @{
-    username =  "admin";
+    username = "admin";
     password = $vropsPassword ;
     }
 
 $basicAuthBodyJson = $basicAuthBody | ConvertTo-Json -Depth 5
 
-Write-Host "Acquiring bearer token ..."
+Write-Host "Acquiring bearer token..."
 $bearer = Invoke-WebRequest -Uri $uri -Method POST -Headers $headers -Body $basicAuthBodyJson
 Write-Host "Bearer token is " $bearer
 
@@ -58,14 +58,16 @@ $authedHeaders = @{
    "Authentication" = "vRealizeOpsToken " $bearer
    }
 
+Write-Host "Formed authentication headers are " $authedHeaders
+
 ## Get host ResourceID
 $uri = "https://" $vropsFqdn "/api/adapterkinds/VMWARE/resourcekinds/HostSystem/resources?identifiers[name]=" $host
-Write-Host "Acquiring host ResourceID ..."
+Write-Host "Acquiring host ResourceID..."
 $resource = Invoke-WebRequest -Uri $uri -Method GET -Headers $authedHeaders
 Write-Host "ResourceID of host is " $resource.identifier
 
 ## Mark host as maintenance mode
 $uri = "https://" $vropsFqdn "/api/resources/" $resource.identifier "/maintained"
-Write-Host "Marking host as vROps maintenance mode ..."
+Write-Host "Marking host as vROps maintenance mode..."
 Invoke-WebRequest -Uri $uri -Method PUT -Headers $authedHeaders
 }
