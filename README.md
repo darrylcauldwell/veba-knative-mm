@@ -39,8 +39,8 @@ docker push ghcr.io/darrylcauldwell/veba-ps-enter:0.2
 
 ```bash
 # SSH to VEBA appliance
-kubectl delete -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm/master/enter-mm-service.yml
-kubectl delete -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm/master/enter-mm-trigger.yml
-kubectl apply -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm/master/enter-mm-service.yml
-kubectl apply -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm/master/enter-mm-trigger.yml
+kubectl delete -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm-enter/main/enter-mm-service.yml
+kubectl delete -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm-enter/main/enter-mm-trigger.yml
+kubectl apply -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm-enter/main/enter-mm-service.yml
+kubectl apply -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm-enter/main/enter-mm-trigger.yml
 ```
