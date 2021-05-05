@@ -35,10 +35,12 @@ docker push ghcr.io/darrylcauldwell/veba-ps-enter:0.2
 - image: ghcr.io/darrylcauldwell/veba-ps-enter-mm:0.2
 ```
 
-5. Once container uploaded remove and recreate Knative function on VEBA appliance like:
+5. Once container uploaded remove and recreate Knative resourcs like:
 
 ```bash
 # SSH to VEBA appliance
 kubectl delete -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm/master/enter-mm-service.yml
+kubectl delete -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm/master/enter-mm-trigger.yml
 kubectl apply -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm/master/enter-mm-service.yml
+kubectl apply -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm/master/enter-mm-trigger.yml
 ```
