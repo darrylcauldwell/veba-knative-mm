@@ -1,7 +1,7 @@
 FROM photon:3.0
 ENV TERM linux
 ENV PORT 8080
-LABEL org.opencontainers.image.source https://github.com/darrylcauldwell/veba-knative-mm
+LABEL org.opencontainers.image.source https://github.com/darrylcauldwell/veba-knative-mm-enter
 
 # Set terminal. If we don't do this, weird readline things happen.
 RUN echo "/usr/bin/pwsh" >> /etc/shells && \
