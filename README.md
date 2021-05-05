@@ -12,24 +12,24 @@ kubectl apply -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-
 
 # Update Function
 
-1. Clone to local repository
+1. Clone to local repository like:
 
 ```bash
 git clone https://github.com/darrylcauldwell/veba-knative-mm.git
 cd veba-knative-mm
 ```
 
-2. Update enter/handler.ps1 or exit/handler./ps1 with required business logic
+2. Update handler.ps1 with required business logic
 
-3. Create new local image and push to GitHub Container Registry incrementing the version in tag
+3. Create new local image and push to GitHub Container Registry incrementing the version in tag like:
 
 ```bash
 # Authenticate if necessary with docker login
-docker build --tag ghcr.io/darrylcauldwell/veba-ps-enter:0.2 ./enter
+docker build --tag ghcr.io/darrylcauldwell/veba-ps-enter:0.2 .
 docker push ghcr.io/darrylcauldwell/veba-ps-enter:0.2
 ```
 
-4. Once container uploaded remove and recreate function
+4. Once container uploaded remove and recreate Knative function on VEBA appliance like:
 
 ```bash
 # SSH to VEBA appliance
