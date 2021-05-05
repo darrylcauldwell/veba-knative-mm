@@ -12,4 +12,5 @@ Write-Host "Full contents of CloudEventDatan"
 
 # Business logic
 Write-Host "Host " + $cloudEventData.Host.Name + " has entered vCenter Maintenance Mode"
+Write-Host "V2"
 }
