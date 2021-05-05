@@ -11,6 +11,6 @@ if($cloudEventData -eq $null) {
 Write-Host "Full contents of CloudEventData`n $(${cloudEventData} | ConvertTo-Json)`n"
 
 # Business logic
-Write-Host "Host " + $cloudEventData.Host.Name + " has entered vCenter Maintenance Mode"
-Write-Host "V2"
+Write-Host "Host " $cloudEventData.Host.Name " has entered vCenter Maintenance Mode"
+Write-Host "V3"
 }
