@@ -15,6 +15,6 @@ RUN pwsh  -Command 'Install-Module ThreadJob -Force -Confirm:$false'
 RUN pwsh -Command 'Install-Module -Name CloudEvents.Sdk'
 
 COPY server.ps1 ./
-COPY enter-handler.ps1 handler.ps1
+COPY enter/handler.ps1 handler.ps1
 
 CMD ["pwsh","./server.ps1"]

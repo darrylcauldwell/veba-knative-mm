@@ -24,7 +24,7 @@ git clone https://github.com/darrylcauldwell/veba-knative-mm.git
 
 ```bash
 # Authenticate if necessary with docker login
-docker build --tag ghcr.io/darrylcauldwell/veba-ps-enter:0.2 enter-Dockerfile
+docker build --tag ghcr.io/darrylcauldwell/veba-ps-enter:0.2 ./enter .
 docker push ghcr.io/darrylcauldwell/veba-ps-enter:0.2
 ```
 
