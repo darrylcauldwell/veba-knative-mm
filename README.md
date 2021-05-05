@@ -29,12 +29,16 @@ docker build --tag ghcr.io/darrylcauldwell/veba-ps-enter:0.2 .
 docker push ghcr.io/darrylcauldwell/veba-ps-enter:0.2
 ```
 
-4. Once container uploaded remove and recreate Knative function on VEBA appliance like:
+4. Update Knative service manifest to reflect new docker container image version lie:
+
+```
+- image: ghcr.io/darrylcauldwell/veba-ps-enter-mm:0.2
+```
+
+5. Once container uploaded remove and recreate Knative function on VEBA appliance like:
 
 ```bash
 # SSH to VEBA appliance
 kubectl delete -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm/master/enter-mm-service.yml
-kubectl delete -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm/master/enter-mm-trigger.yml
 kubectl apply -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm/master/enter-mm-service.yml
-kubectl apply -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm/master/enter-mm-trigger.yml
 ```
