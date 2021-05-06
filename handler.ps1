@@ -53,4 +53,11 @@ Write-Host "ResourceID of host is " $resourceJson.resourceList[0].identifier
 $uri = "https://" + $vropsFqdn + "/suite-api/api/resources/" + $resourceJson.resourceList[0].identifier + "/maintained"
 Write-Host "Marking host as vROps maintenance mode ..."
 Invoke-WebRequest -Uri $uri -Method PUT -Headers $authedHeaders -SkipCertificateCheck
+
+## Get host maintenance mode state
+$uri = "https://" + $vropsFqdn + "/suite-api/api/adapterkinds/VMWARE/resourcekinds/HostSystem/resources?name=" + $esxiHost
+Write-Host "Acquiring host maintenance mode state ..."
+$resource = Invoke-WebRequest -Uri $uri -Method GET -Headers $authedHeaders -SkipCertificateCheck
+$resourceJson = $resource.Content | ConvertFrom-Json
+Write-Host "ResourceID of host is " $resourceJson.resourceList[0].resourceStatusStates[0].resourceState
 }
