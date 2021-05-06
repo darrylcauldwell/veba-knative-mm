@@ -61,4 +61,5 @@ Write-Host "Acquiring host maintenance mode state ..."
 $resource = Invoke-WebRequest -Uri $uri -Method GET -Headers $authedHeaders -SkipCertificateCheck
 $resourceJson = $resource.Content | ConvertFrom-Json
 Write-Host "Host maintenence mode state is " $resourceJson.resourceList[0].resourceStatusStates[0].resourceState
+Write-Host "Note: STARTED=Not In Maintenance | MAINTAINED_MANUAL=In Maintenance"
 }
