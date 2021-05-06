@@ -2,45 +2,31 @@ Background reading to this repository
 
 https://darrylcauldwell.github.io/post/veba-knative/
 
+# Setup Environment Variables
+
+```bash
+kubectl -n vmware-functions create secret generic veba-knative-mm-vrops \
+  --from-literal=vropsFqdn=vrops.cork.local \
+  --from-literal=vropsUser=admin \
+  --from-literal=vropsPassword='VMware1!'
+```
+
 # Install Function
 
 ```bash
-# SSH to VEBA appliance
-kubectl apply -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm/master/enter-mm-service.yml
-kubectl apply -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm/master/enter-mm-trigger.yml
+kubectl apply -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm/master/veba-knative-mm-enter.yml
 ```
 
 # Update Function
 
-1. Clone to local repository like:
-
 ```bash
-git clone https://github.com/darrylcauldwell/veba-knative-mm.git
-cd veba-knative-mm
+git clone https://github.com/darrylcauldwell/veba-knative-mm-enter.git
+cd veba-knative-mm-enter
 ```
 
-2. Update handler.ps1 with required business logic
-
-3. Create new local image and push to GitHub Container Registry incrementing the version in tag like:
+Update handler.ps1 with required business logic
 
 ```bash
-# Authenticate if necessary with docker login
 docker build --tag ghcr.io/darrylcauldwell/veba-ps-enter-mm:0.2 .
 docker push ghcr.io/darrylcauldwell/veba-ps-enter-mm:0.2
-```
-
-4. Update Knative service manifest ( enter-mm-service.yml ) to reflect new docker container image version lie:
-
-```
-- image: ghcr.io/darrylcauldwell/veba-ps-enter-mm:0.2
-```
-
-5. Once container uploaded remove and recreate Knative resourcs like:
-
-```bash
-# SSH to VEBA appliance
-kubectl delete -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm-enter/main/enter-mm-service.yml
-kubectl delete -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm-enter/main/enter-mm-trigger.yml
-kubectl apply -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm-enter/main/enter-mm-service.yml
-kubectl apply -f https://raw.githubusercontent.com/darrylcauldwell/veba-knative-mm-enter/main/enter-mm-trigger.yml
 ```
