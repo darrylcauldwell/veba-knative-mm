@@ -39,7 +39,7 @@ add-type @"
 [System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
 
 ## Acquire bearer token
-$uri = "https://" $vropsFqdn "/suite-api/api/auth/token/acquire"
+$uri = "https://" + $vropsFqdn + "/suite-api/api/auth/token/acquire"
 
 $basicAuthBody = @{
     username =  "admin";
