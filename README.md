@@ -27,6 +27,6 @@ cd veba-knative-mm-enter
 Update handler.ps1 with required business logic
 
 ```bash
-docker build --tag ghcr.io/darrylcauldwell/veba-ps-enter-mm:0.2 .
-docker push ghcr.io/darrylcauldwell/veba-ps-enter-mm:0.2
+docker build --tag ghcr.io/darrylcauldwell/veba-ps-enter-mm:1.0 .
+docker push ghcr.io/darrylcauldwell/veba-ps-enter-mm:1.0
 ```
