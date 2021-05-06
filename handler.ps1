@@ -59,5 +59,5 @@ $uri = "https://" + $vropsFqdn + "/suite-api/api/adapterkinds/VMWARE/resourcekin
 Write-Host "Acquiring host maintenance mode state ..."
 $resource = Invoke-WebRequest -Uri $uri -Method GET -Headers $authedHeaders -SkipCertificateCheck
 $resourceJson = $resource.Content | ConvertFrom-Json
-Write-Host "ResourceID of host is " $resourceJson.resourceList[0].resourceStatusStates[0].resourceState
+Write-Host "Host maintenence mode state is " $resourceJson.resourceList[0].resourceStatusStates[0].resourceState
 }
