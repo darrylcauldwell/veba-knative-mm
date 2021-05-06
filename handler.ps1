@@ -24,32 +24,13 @@ $headers = @{
    "Accept"  = "application/json"
    }
 
-## Bypass certificate issues -  Does not work on dotNet Core function uses -SkipCertificateCheck
-<#
-add-type @"
-   using System.Net;
-   using System.Security.Cryptography.X509Certificates;
-   public class TrustAllCertsPolicy : ICertificatePolicy {
-       public bool CheckValidationResult(
-           ServicePoint srvPoint, X509Certificate certificate,
-           WebRequest request, int certificateProblem) {
-           return true;
-       }
-   }
-"@
-[System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
-#>
-
 ## Acquire bearer token
 $uri = "https://" + $vropsFqdn + "/suite-api/api/auth/token/acquire"
-
 $basicAuthBody = @{
     username =  "admin";
     password = $vropsPassword ;
     }
-
 $basicAuthBodyJson = $basicAuthBody | ConvertTo-Json -Depth 5
-
 Write-Host "Acquiring bearer token ..."
 $bearer = Invoke-WebRequest -Uri $uri -Method POST -Headers $headers -Body $basicAuthBodyJson -SkipCertificateCheck | ConvertFrom-Json
 Write-Host "Bearer token is" $bearer.token
