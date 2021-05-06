@@ -17,10 +17,11 @@ Write-Host "Full contents of CloudEventData`n $(${cloudEventData} | ConvertTo-Js
 ## Hardcoded variables to move to secrets later
 $vropsFqdn = "vrops.cork.local"
 $vropsPassword = "VMware1!"
+
 ## Form unauthorized headers payload
 $headers = @{
    "Content-Type" = "application/json";
-   "Accept" = "application/json"
+   "Accept"  = "application/json"
    }
 
 ## Bypass certificate issues
@@ -41,33 +42,33 @@ add-type @"
 $uri = "https://" $vropsFqdn "/suite-api/api/auth/token/acquire"
 
 $basicAuthBody = @{
-    username = "admin";
+    username =  "admin";
     password = $vropsPassword ;
     }
 
 $basicAuthBodyJson = $basicAuthBody | ConvertTo-Json -Depth 5
 
-Write-Host "Acquiring bearer token..."
-$bearer = Invoke-WebRequest -Uri $uri -Method POST -Headers $headers -Body $basicAuthBodyJson
-Write-Host "Bearer token is " $bearer
+Write-Host "Acquiring bearer token ..."
+$bearer = Invoke-WebRequest -Uri $uri -Method POST -Headers $headers -Body $basicAuthBodyJson | ConvertFrom-Json
+Write-Host "Bearer token is" $bearer.token
 
 ## Form authorized headers payload
 $authedHeaders = @{
    "Content-Type" = "application/json";
    "Accept"  = "application/json";
-   "Authentication" = "vRealizeOpsToken " $bearer
+   "Authorization" = "vRealizeOpsToken " + $bearer.token
    }
 
-Write-Host "Formed authentication headers are " $authedHeaders
-
 ## Get host ResourceID
-$uri = "https://" $vropsFqdn "/api/adapterkinds/VMWARE/resourcekinds/HostSystem/resources?identifiers[name]=" $host
-Write-Host "Acquiring host ResourceID..."
+$uri = "https://" + $vropsFqdn + "/suite-api/api/adapterkinds/VMWARE/resourcekinds/HostSystem/resources?name=" + $esxiHost
+Write-Host "Acquiring host ResourceID ..."
 $resource = Invoke-WebRequest -Uri $uri -Method GET -Headers $authedHeaders
-Write-Host "ResourceID of host is " $resource.identifier
+$resourceJson = $resource.Content | ConvertFrom-Json
+Write-Host "ResourceID of host is " $resourceJson.resourceList[0].identifier
 
 ## Mark host as maintenance mode
-$uri = "https://" $vropsFqdn "/api/resources/" $resource.identifier "/maintained"
-Write-Host "Marking host as vROps maintenance mode..."
+
+$uri = "https://" + $vropsFqdn + "/suite-api/api/resources/" + $resourceJson.resourceList[0].identifier + "/maintained"
+Write-Host "Marking host as vROps maintenance mode ..."
 Invoke-WebRequest -Uri $uri -Method PUT -Headers $authedHeaders
 }
