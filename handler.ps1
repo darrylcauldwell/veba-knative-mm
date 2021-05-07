@@ -3,16 +3,16 @@ Function Process-Handler {
       [Parameter(Position=0,Mandatory=$true)][CloudNative.CloudEvents.CloudEvent]$CloudEvent
    )
 
-# Form cloudEventData object and output to console for debugging
+# Form CloudEventData object and output to console for debugging
 $cloudEventData = $cloudEvent | Read-CloudEventJsonData -ErrorAction SilentlyContinue -Depth 10
 if($cloudEventData -eq $null) {
    $cloudEventData = $cloudEvent | Read-CloudEventData
    }
 Write-Host "Full contents of CloudEventData`n $(${cloudEventData} | ConvertTo-Json)`n"
 
-# Perform onward action
-
-## vROps REST API documentation https://code.vmware.com/apis/364/vrealize-operations
+# Extract hostname from CloudEventData object
+$esxiHost=$cloudEventData.Host.Name
+Write-Host "Hostname from CloudEventData" $esxiHost
 
 ## Check secret in place which supplies vROps environment variables
 Write-Host "vropsFqdn:" ${env:vropsFqdn}
